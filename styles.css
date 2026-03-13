@@ -154,6 +154,15 @@ a {
     border: 1px solid rgba(255, 223, 192, 0.18);
     box-shadow: inset 0 1px 0 rgba(255, 241, 230, 0.18);
     font-size: 0.95rem;
+    overflow: hidden;
+}
+
+.nav-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
 }
 
 .nav-links,
@@ -1194,7 +1203,7 @@ a {
 }
 
 .hero-display {
-    max-width: 12ch;
+    max-width: 14ch;
     margin-left: auto;
     margin-right: auto;
 }
