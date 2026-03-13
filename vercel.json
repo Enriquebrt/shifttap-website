@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/en", "destination": "/en/index.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/support", "destination": "/support.html" }
   ]
