@@ -1,57 +1,56 @@
-# ShiftTap Screenshot Setup
+# ShiftTap Mockup Setup
 
-Die neue Website ist so gebaut, dass du echte App-Screenshots einfach in den Ordner `images/` legst. Wenn eine Datei fehlt, zeigt die Seite automatisch einen stilvollen Platzhalter statt eines kaputten Bildes.
+Die Homepage nutzt jetzt echte iPhone-Mockups als Bilddateien und ist strukturell an `payer.framer.website` angelehnt.
 
-## Screenshot-Dateien
+## Mockup-Ordner
 
-Lege diese Dateien in `/Users/enrique/Dev/Projekte/ShiftTap/website/images/` ab:
+Lege deine fertigen Render in:
 
-- `hero-overview.png`
-- `hero-quick-actions.png`
-- `dashboard.png`
+- `/Users/enrique/Dev/Projekte/ShiftTap/website/images/mockups/`
+
+## Erwartete Dateinamen
+
+- `hero-main.png`
+- `quick-actions.png`
+- `shift-overview.png`
 - `insights.png`
-- `schedule.png`
 - `live-activity.png`
 
-## Wo welche Datei verwendet wird
+## Wo sie eingesetzt werden
 
-- `hero-overview.png`
-  Die grosse iPhone-Darstellung im Hero und die erste breite Galerie-Karte.
-- `hero-quick-actions.png`
-  Das zweite kleinere iPhone im Hero.
-- `dashboard.png`
-  Der erste grosse Story-Block fuer deine Home- oder Dashboard-Ansicht.
+- `hero-main.png`
+  Der grosse zentrale Device-Shot im Hero.
+- `quick-actions.png`
+  Die erste Showcase-Section "Quick Actions".
+- `shift-overview.png`
+  Die zweite grosse Showcase-Section fuer Schichtplanung.
 - `insights.png`
-  Der Analytics-Story-Block und die Analytics-Galerie.
-- `schedule.png`
-  Der Planungs-Story-Block und die Schedule-Galerie.
+  Der linke Device-Shot im unteren CTA-Bereich.
 - `live-activity.png`
-  Die letzte Galerie-Karte fuer Live Activity oder Lock Screen.
+  Der rechte Device-Shot im unteren CTA-Bereich.
 
-## Empfohlene Formate
+## Empfehlung fuer die Assets
 
-- iPhone Screens: PNG
-- Aufloesung: mindestens 1290 x 2796 px, wenn du bereits App-Store-Screens nutzt
-- Hintergrund: am besten direkt aus der App, ohne zusaetzliche Geraeterahmen
+- Format: PNG mit transparentem Hintergrund
+- Inhalt: Das iPhone-Geraet sollte schon im Bild selbst enthalten sein
+- Stil: dunkler Screen, warmer Glow, realistischer Metallrahmen
+- Freistellung: moeglichst sauber, damit der Seitenhintergrund durchkommt
 
-Die Website setzt ihre eigenen Device-Frames und Karten bereits um.
+## Warum keine CSS-Frames mehr?
 
-## Schnelltest lokal
+Du wolltest fertige iPhone-Mockups als Bild statt nachgebauter CSS-Geraete. Deshalb erwartet die Seite jetzt richtige Produkt-Render und nicht mehr nur Screens in einem HTML-Rahmen.
 
-1. Screenshots in `images/` ablegen
-2. Seite lokal oeffnen
-3. Pruefen, ob die Platzhalter automatisch verschwinden
+## Schnelltest
 
-## Optional zusaetzlich sinnvoll
-
-- `app-icon.png` fuer Favicons und Apple Touch Icon
-- `og-image.png` fuer Social Sharing Preview
+1. Dateien in `images/mockups/` ablegen
+2. Startseite neu laden
+3. Die Platzhalter verschwinden automatisch, sobald die Bilddateien existieren
 
 ## Deployment
 
 ```bash
 cd /Users/enrique/Dev/Projekte/ShiftTap/website
-git add index.html support.html privacy.html styles.css script.js images SCREENSHOTS.md
-git commit -m "Modernize marketing site and add screenshot slots"
+git add index.html styles.css SCREENSHOTS.md images/mockups
+git commit -m "Restructure homepage around image-based iPhone mockups"
 git push origin main
 ```
