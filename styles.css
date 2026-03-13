@@ -1256,13 +1256,13 @@ a {
 .product-shot-left {
     left: 4%;
     top: 16%;
-    transform: rotate(-9deg);
+    --base-rotate: -9deg;
 }
 
 .product-shot-right {
     right: 2%;
     bottom: 8%;
-    transform: rotate(8deg);
+    --base-rotate: 8deg;
 }
 
 .product-shot-shadow {
@@ -1325,6 +1325,19 @@ a {
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: var(--shadow-md);
     backdrop-filter: blur(20px);
+}
+
+.overview-card,
+.signal-card,
+.testimonial-card,
+.proof-stat,
+.metric-chip,
+.mini-card,
+.operation-card,
+.forecast-card {
+    transform: translate3d(0, var(--hover-translate, 0px), 0) scale(var(--hover-scale, 1));
+    transform-origin: center center;
+    will-change: transform;
 }
 
 .overview-card {
@@ -1543,7 +1556,8 @@ a {
 .testimonial-card:hover,
 .signal-card:hover,
 .overview-card:hover {
-    transform: translateY(-6px);
+    --hover-translate: -6px;
+    --hover-scale: 1.01;
     border-color: rgba(255, 236, 220, 0.14);
     box-shadow: 0 26px 72px rgba(0, 0, 0, 0.38);
 }
@@ -1673,6 +1687,10 @@ a {
     gap: 18px;
 }
 
+.testimonials-section {
+    padding-top: 84px;
+}
+
 .testimonial-card {
     padding: 26px;
     border-radius: 28px;
@@ -1724,7 +1742,8 @@ a {
 
 .mini-card:hover,
 .metric-chip:hover {
-    transform: translateY(-4px);
+    --hover-translate: -4px;
+    --hover-scale: 1.01;
     border-color: rgba(255, 236, 220, 0.14);
     background: rgba(255, 255, 255, 0.05);
 }
@@ -1843,7 +1862,10 @@ a {
 }
 
 [data-parallax] {
-    transform: translate3d(0, calc(var(--parallax-offset, 0px) * var(--parallax-speed, 1)), 0) rotate(var(--base-rotate, 0deg));
+    transform:
+        translate3d(0, calc((var(--parallax-offset, 0px) * var(--parallax-speed, 1)) + var(--hover-translate, 0px)), 0)
+        scale(var(--hover-scale, 1))
+        rotate(var(--base-rotate, 0deg));
     will-change: transform;
 }
 

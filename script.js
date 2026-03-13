@@ -1,6 +1,24 @@
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const nav = document.querySelector(".nav");
+const autoRevealSelectors = [
+    ".feature-overview-grid > *",
+    ".operations-grid > *",
+    ".signal-grid > *",
+    ".testimonial-grid > *",
+    ".proof-stats > *",
+    ".mini-grid > *",
+    ".metric-chip-row > *",
+    ".scroll-bridge > *",
+    ".integration-cloud > *",
+    ".forecast-stack > *"
+];
+
+autoRevealSelectors.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((element) => {
+        element.classList.add("reveal");
+    });
+});
 
 const updateNav = () => {
     if (!nav) {
@@ -20,7 +38,8 @@ const staggerGroups = [
     ".mini-grid > *",
     ".metric-chip-row > *",
     ".scroll-bridge > *",
-    ".integration-cloud > *"
+    ".integration-cloud > *",
+    ".forecast-stack > *"
 ];
 
 staggerGroups.forEach((selector) => {
