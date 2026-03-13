@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ShiftTap - Die ultimative App für Servicekräfte. Tracke Trinkgelder, plane Schichten und maximiere dein Einkommen.">
+    <meta property="og:title" content="ShiftTap - Trinkgeld & Schichtplanung">
+    <meta property="og:description" content="Die ultimative App für Servicekräfte. Tracke Trinkgelder, plane Schichten und maximiere dein Einkommen.">
+    <meta property="og:image" content="https://shifttap.app/og-image.png">
     <title>ShiftTap - Trinkgeld & Schichtplanung für Profis</title>
     <style>
         * {
@@ -12,22 +15,91 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --dark: #2d3748;
+            --light: #f7fafc;
+            --accent: #f56565;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
             color: #333;
+            overflow-x: hidden;
         }
 
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 100px 20px;
-            text-align: center;
-            min-height: 100vh;
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav .nav-links a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 180px 20px 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: bottom;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .hero h1 {
@@ -36,24 +108,40 @@
             animation: fadeInUp 1s ease-out;
         }
 
-        .hero p {
-            font-size: 1.5em;
-            margin-bottom: 40px;
-            opacity: 0.9;
+        .hero .tagline {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            opacity: 0.95;
             animation: fadeInUp 1s ease-out 0.2s backwards;
         }
 
+        .hero .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            opacity: 0.85;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
         .cta-button {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             background: white;
-            color: #667eea;
+            color: var(--primary);
             padding: 18px 40px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
             font-size: 1.2em;
             transition: transform 0.3s, box-shadow 0.3s;
-            animation: fadeInUp 1s ease-out 0.4s backwards;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
@@ -62,17 +150,142 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
 
+        .cta-button.secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Screenshot Preview */
+        .hero-preview {
+            margin-top: 80px;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+
+        .phone-mockup {
+            position: relative;
+            max-width: 300px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .phone-mockup img {
+            width: 100%;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 40px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            padding: 100px 20px;
+            background: var(--light);
+        }
+
+        .screenshots h2 {
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .screenshots .subtitle {
+            text-align: center;
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .screenshot-card {
+            background: white;
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .screenshot-card .screen {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3em;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screenshot-card .screen::after {
+            content: 'Screenshot';
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.3em;
+            opacity: 0.5;
+        }
+
+        .screenshot-card h3 {
+            color: var(--dark);
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .screenshot-card p {
+            color: #666;
+            font-size: 1em;
+        }
+
+        /* Features Section */
         .features {
-            padding: 80px 20px;
+            padding: 100px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .features h2 {
             text-align: center;
-            font-size: 2.5em;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .features .subtitle {
+            text-align: center;
+            font-size: 1.3em;
+            color: #666;
             margin-bottom: 60px;
-            color: #667eea;
         }
 
         .feature-grid {
@@ -82,45 +295,137 @@
         }
 
         .feature-card {
-            padding: 30px;
+            padding: 40px;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
         }
 
         .feature-card .icon {
-            font-size: 3em;
+            font-size: 3.5em;
             margin-bottom: 20px;
+            display: block;
         }
 
         .feature-card h3 {
-            color: #764ba2;
+            color: var(--dark);
             margin-bottom: 15px;
             font-size: 1.5em;
         }
 
-        footer {
-            background: #2d3748;
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 40px 20px;
+            padding: 80px 20px;
             text-align: center;
         }
 
-        footer a {
-            color: #667eea;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-item .number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-item .label {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 20px;
+            text-align: center;
+            background: var(--light);
+        }
+
+        .cta-section h2 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .cta-section p {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
-            margin: 0 15px;
+            transition: color 0.3s;
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        .footer-section a:hover {
+            color: var(--primary);
         }
 
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -132,78 +437,259 @@
             }
         }
 
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
+            nav .nav-links {
+                display: none;
+            }
+
             .hero h1 {
                 font-size: 2.5em;
             }
 
-            .hero p {
-                font-size: 1.2em;
+            .hero .tagline {
+                font-size: 1.3em;
             }
 
-            .feature-grid {
+            .hero .subtitle {
+                font-size: 1em;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .feature-grid,
+            .screenshot-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">📱 ShiftTap</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#screenshots">Screenshots</a>
+                <a href="/support">Support</a>
+                <a href="/privacy">Datenschutz</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
     <section class="hero">
-        <h1>📱 ShiftTap</h1>
-        <p>Trinkgeld tracken. Schichten planen. Einkommen maximieren.</p>
-        <a href="https://apps.apple.com/app/shifttap/idXXXXXXXXXX" class="cta-button">
-            📲 Jetzt im App Store
-        </a>
-    </section>
+        <div class="hero-content">
+            <h1>📱 ShiftTap</h1>
+            <p class="tagline">Deine Einnahmen im Griff</p>
+            <p class="subtitle">Die ultimative App für Servicekräfte. Tracke Trinkgelder, plane Schichten und maximiere dein Einkommen – einfach, schön und privat.</p>
 
-    <section class="features">
-        <h2>Features</h2>
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="icon">📊</div>
-                <h3>Smart Analytics</h3>
-                <p>Detaillierte Statistiken zu Einnahmen, Schichten und Trends. Verstehe deine Performance und optimiere dein Einkommen.</p>
+            <div class="cta-buttons">
+                <a href="https://apps.apple.com/app/shifttap/idXXXXXXXXXX" class="cta-button">
+                    📲 Jetzt im App Store
+                </a>
+                <a href="#screenshots" class="cta-button secondary">
+                    📸 Screenshots ansehen
+                </a>
             </div>
+        </div>
 
-            <div class="feature-card">
-                <div class="icon">📅</div>
-                <h3>Schichtplanung</h3>
-                <p>Erstelle und verwalte Schichten mit Nacht- und Feiertagszuschlägen. Kalender-Integration und Live Activities.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon">💰</div>
-                <h3>Trinkgeld Tracking</h3>
-                <p>Schnelles Erfassen von Trinkgeldern mit Brutto/Netto-Berechnungen und Steuerrechner für Deutschland.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon">📈</div>
-                <h3>Prognosen & Ziele</h3>
-                <p>KI-gestützte Tagesprognosen und erreichbare Einkommensziele. Verfolge deinen Fortschritt in Echtzeit.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon">🔒</div>
-                <h3>Datenschutz First</h3>
-                <p>Alle Daten bleiben lokal auf deinem Gerät. Keine Cloud-Pflicht, keine Werbung, kein Tracking.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon">🎨</div>
-                <h3>Modernes Design</h3>
-                <p>Glassmorphismus-Design mit anpassbaren Themes und Hintergründen. Optimiert für iOS 18.</p>
+        <div class="hero-preview">
+            <div class="phone-mockup">
+                <div class="screenshot-placeholder">
+                    📱<br>App Icon &<br>Hauptansicht
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="number">100%</div>
+                <div class="label">Privat & Lokal</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">4</div>
+                <div class="label">Widget-Typen</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">∞</div>
+                <div class="label">Offline nutzbar</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">iOS 18</div>
+                <div class="label">Optimiert</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="screenshots" id="screenshots">
+        <h2>Die App im Detail</h2>
+        <p class="subtitle">Entdecke alle Features von ShiftTap in Aktion</p>
+
+        <div class="screenshot-grid">
+            <div class="screenshot-card">
+                <div class="screen">📊</div>
+                <h3>Dashboard</h3>
+                <p>Übersichtliches Dashboard mit allen wichtigen Infos auf einen Blick</p>
+            </div>
+
+            <div class="screenshot-card">
+                <div class="screen">📈</div>
+                <h3>Smart Insights</h3>
+                <p>Intelligente Analysen und personalisierte Empfehlungen für mehr Einkommen</p>
+            </div>
+
+            <div class="screenshot-card">
+                <div class="screen">📅</div>
+                <h3>Schichtplanung</h3>
+                <p>Professionelle Schichtplanung mit Zuschlägen und Kalender-Integration</p>
+            </div>
+
+            <div class="screenshot-card">
+                <div class="screen">🔔</div>
+                <h3>Live Activity</h3>
+                <p>Verfolge deine aktive Schicht direkt im Sperrbildschirm</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2>Alle Features</h2>
+        <p class="subtitle">Alles was du brauchst, um dein Einkommen zu optimieren</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="icon">📊</span>
+                <h3>Smart Analytics</h3>
+                <p>Detaillierte Statistiken zu Einnahmen, Schichten und Trends. Verstehe deine Performance und optimiere dein Einkommen mit datengetriebenen Insights.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">📅</span>
+                <h3>Schichtplanung</h3>
+                <p>Erstelle und verwalte Schichten mit Nacht- und Feiertagszuschlägen. Kalender-Integration und Live Activities zeigen dir alles in Echtzeit.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">💰</span>
+                <h3>Trinkgeld Tracking</h3>
+                <p>Schnelles Erfassen von Trinkgeldern mit Brutto/Netto-Berechnungen. Steuerrechner speziell für Deutschland inklusive.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">📈</span>
+                <h3>Prognosen & Ziele</h3>
+                <p>KI-gestützte Tagesprognosen und erreichbare Einkommensziele. Verfolge deinen Fortschritt und bleibe motiviert.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">💳</span>
+                <h3>Ausgaben Management</h3>
+                <p>Erfasse berufliche Ausgaben, kategorisiere sie und erstelle steuerrelevante Exporte für deine Steuererklärung.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">🔔</span>
+                <h3>Live Activities</h3>
+                <p>Verfolge deine aktive Schicht direkt im Sperrbildschirm mit Dynamic Island Support. Nie war Zeiterfassung einfacher.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">📱</span>
+                <h3>Widgets</h3>
+                <p>4 verschiedene Widget-Typen für deinen Homescreen: Tagesübersicht, Wochenstatistik, aktive Schicht und nächste Schicht.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">🔒</span>
+                <h3>Datenschutz First</h3>
+                <p>Alle Daten bleiben lokal auf deinem Gerät. Keine Cloud-Pflicht, keine Werbung, kein Tracking. Deine Privatsphäre ist garantiert.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">🎨</span>
+                <h3>Modernes Design</h3>
+                <p>Glassmorphismus-Design mit anpassbaren Themes und Hintergründen. Vollständig optimiert für iOS 18 und das neueste Design-System.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Bereit loszulegen?</h2>
+        <p>Starte noch heute und nimm die Kontrolle über deine Einnahmen. Kostenlos testen, dann upgraden wenn du bereit bist.</p>
+        <a href="https://apps.apple.com/app/shifttap/idXXXXXXXXXX" class="cta-button">
+            📲 Jetzt kostenlos laden
+        </a>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Enrique Bartholme. Alle Rechte vorbehalten.</p>
-        <p>
-            <a href="/privacy">Datenschutz</a>
-            <a href="/support">Support</a>
-            <a href="mailto:support@shifttap.app">Kontakt</a>
-        </p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ShiftTap</h3>
+                <p>Die ultimative App für Servicekräfte, Barkeeper und alle, die Trinkgeld verdienen.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#screenshots">Screenshots</a></li>
+                    <li><a href="/support">Support & FAQ</a></li>
+                    <li><a href="/privacy">Datenschutz</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Kontakt</h3>
+                <ul>
+                    <li><a href="mailto:support@shifttap.app">support@shifttap.app</a></li>
+                    <li><a href="https://apps.apple.com/app/shifttap/idXXXXXXXXXX">App Store</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Für wen?</h3>
+                <ul>
+                    <li>Kellner & Servicekräfte</li>
+                    <li>Barkeeper & Bartender</li>
+                    <li>Hotel-Personal</li>
+                    <li>Lieferdienst-Fahrer</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Enrique Bartholme. Alle Rechte vorbehalten.</p>
+        </div>
     </footer>
 </body>
 </html>
