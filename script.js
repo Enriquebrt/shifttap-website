@@ -2,8 +2,10 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
 const nav = document.querySelector(".nav");
 const autoRevealSelectors = [
+    ".value-grid > *",
     ".feature-overview-grid > *",
     ".operations-grid > *",
+    ".benefit-grid > *",
     ".signal-grid > *",
     ".testimonial-grid > *",
     ".proof-stats > *",
@@ -30,8 +32,10 @@ const updateNav = () => {
 
 const revealElements = document.querySelectorAll(".reveal");
 const staggerGroups = [
+    ".value-grid > *",
     ".feature-overview-grid > *",
     ".operations-grid > *",
+    ".benefit-grid > *",
     ".signal-grid > *",
     ".testimonial-grid > *",
     ".proof-stats > *",

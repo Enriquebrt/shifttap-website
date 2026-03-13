@@ -39,6 +39,10 @@ html {
     scroll-behavior: smooth;
 }
 
+[id] {
+    scroll-margin-top: 118px;
+}
+
 body {
     font-family: "Manrope", "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
     color: var(--text);
@@ -96,6 +100,10 @@ a {
 }
 
 .page-shell {
+    position: relative;
+}
+
+.page-home main {
     position: relative;
 }
 
@@ -603,6 +611,33 @@ a {
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: var(--shadow-md);
     backdrop-filter: blur(22px);
+    position: relative;
+    overflow: hidden;
+}
+
+.value-strip::before {
+    content: "";
+    position: absolute;
+    inset: auto auto -42% -8%;
+    width: 320px;
+    height: 320px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(242, 146, 136, 0.16), transparent 68%);
+    filter: blur(10px);
+    pointer-events: none;
+}
+
+.value-strip::after {
+    content: "";
+    position: absolute;
+    top: -18%;
+    right: -10%;
+    width: 340px;
+    height: 340px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(214, 108, 33, 0.18), transparent 72%);
+    filter: blur(14px);
+    pointer-events: none;
 }
 
 .value-grid {
@@ -612,10 +647,12 @@ a {
 }
 
 .value-card {
+    position: relative;
     padding: 18px 20px;
     border-radius: 26px;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(18px);
 }
 
 .value-card strong {
@@ -628,6 +665,7 @@ a {
 .value-card span {
     color: var(--text-muted);
     font-size: 0.94rem;
+    line-height: 1.65;
 }
 
 .section {
@@ -636,6 +674,11 @@ a {
 
 .section-tight {
     padding-top: 84px;
+}
+
+.value-strip-section {
+    padding-top: 34px;
+    padding-bottom: 10px;
 }
 
 .section-header {
@@ -933,6 +976,21 @@ a {
         linear-gradient(135deg, #111113, #1a1614);
     color: var(--text-on-dark);
     box-shadow: var(--shadow-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.benefit-band::before {
+    content: "";
+    position: absolute;
+    right: -10%;
+    bottom: -28%;
+    width: 380px;
+    height: 380px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(246, 196, 123, 0.18), transparent 68%);
+    filter: blur(12px);
+    pointer-events: none;
 }
 
 .benefit-grid {
@@ -942,11 +1000,31 @@ a {
     align-items: start;
 }
 
+.benefit-lead {
+    padding: 8px 8px 8px 0;
+}
+
+.benefit-lead h2 {
+    margin-top: 14px;
+    font-size: clamp(2.1rem, 4vw, 3.7rem);
+    line-height: 1.02;
+    letter-spacing: -0.06em;
+}
+
+.benefit-lead p {
+    margin-top: 18px;
+    max-width: 32rem;
+    color: var(--text-on-dark-soft);
+    font-size: 1.02rem;
+    line-height: 1.78;
+}
+
 .benefit-card {
     padding: 24px;
     border-radius: 28px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
 }
 
 .benefit-card strong {
@@ -1342,6 +1420,9 @@ a {
 .proof-stat,
 .metric-chip,
 .mini-card,
+.value-card,
+.benefit-card,
+.integration-cloud span,
 .operation-card,
 .forecast-card {
     transform: translate3d(0, var(--hover-translate, 0px), 0) scale(var(--hover-scale, 1));
@@ -1542,6 +1623,7 @@ a {
     color: var(--text-soft);
     font-size: 0.96rem;
     font-weight: 700;
+    transition: transform 220ms ease, border-color 220ms ease, background-color 220ms ease;
 }
 
 .operations-grid {
@@ -1676,6 +1758,21 @@ a {
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
     gap: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.proof-band::before {
+    content: "";
+    position: absolute;
+    top: -24%;
+    right: -12%;
+    width: 320px;
+    height: 320px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(246, 196, 123, 0.12), transparent 70%);
+    filter: blur(10px);
+    pointer-events: none;
 }
 
 .proof-stats {
@@ -1733,6 +1830,21 @@ a {
     grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
     gap: 28px;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-reference-shell::before {
+    content: "";
+    position: absolute;
+    left: -14%;
+    top: -18%;
+    width: 360px;
+    height: 360px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(242, 146, 136, 0.14), transparent 68%);
+    filter: blur(14px);
+    pointer-events: none;
 }
 
 .cta-reference-visual {
@@ -1745,12 +1857,17 @@ a {
 .testimonial-card,
 .proof-stat,
 .metric-chip,
-.mini-card {
+.mini-card,
+.value-card,
+.benefit-card {
     transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
 }
 
 .mini-card:hover,
-.metric-chip:hover {
+.metric-chip:hover,
+.value-card:hover,
+.benefit-card:hover,
+.integration-cloud span:hover {
     --hover-translate: -4px;
     --hover-scale: 1.01;
     border-color: rgba(255, 236, 220, 0.14);
