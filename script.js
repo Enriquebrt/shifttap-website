@@ -11,6 +11,23 @@ const updateNav = () => {
 };
 
 const revealElements = document.querySelectorAll(".reveal");
+const staggerGroups = [
+    ".feature-overview-grid > *",
+    ".operations-grid > *",
+    ".signal-grid > *",
+    ".testimonial-grid > *",
+    ".proof-stats > *",
+    ".mini-grid > *",
+    ".metric-chip-row > *",
+    ".scroll-bridge > *",
+    ".integration-cloud > *"
+];
+
+staggerGroups.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((element, index) => {
+        element.style.setProperty("--reveal-delay", `${index * 70}ms`);
+    });
+});
 
 if ("IntersectionObserver" in window && revealElements.length > 0) {
     const revealObserver = new IntersectionObserver(
@@ -59,6 +76,11 @@ if (!prefersReducedMotion) {
 
     const updateParallax = () => {
         const viewportHeight = window.innerHeight || 1;
+        const documentHeight = document.documentElement.scrollHeight - viewportHeight;
+
+        if (documentHeight > 0) {
+            document.documentElement.style.setProperty("--page-scroll", `${window.scrollY / documentHeight}`);
+        }
 
         parallaxElements.forEach((element) => {
             const speed = Number(element.dataset.parallax || "0");
@@ -66,9 +88,11 @@ if (!prefersReducedMotion) {
             const centerOffset = rect.top + rect.height / 2 - viewportHeight / 2;
             const offset = centerOffset * speed * -0.14;
             const clampedOffset = Math.max(Math.min(offset, 50), -50);
+            const normalizedProgress = Math.max(Math.min(1 - Math.abs(centerOffset) / viewportHeight, 1), 0);
 
             element.style.setProperty("--parallax-offset", `${clampedOffset}px`);
             element.style.setProperty("--parallax-speed", "1");
+            element.style.setProperty("--parallax-progress", normalizedProgress.toFixed(3));
         });
 
         ticking = false;

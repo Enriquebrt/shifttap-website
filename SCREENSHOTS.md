@@ -13,6 +13,12 @@ Lege deine fertigen Render in:
 - `hero-main.png`
 - `quick-actions.png`
 - `shift-overview.png`
+- `templates.png`
+- `premiums.png`
+- `cash-expenses.png`
+- `daily-forecast.png`
+- `monthly-tip-forecast.png`
+- `salary-forecast.png`
 - `insights.png`
 - `live-activity.png`
 
@@ -24,6 +30,18 @@ Lege deine fertigen Render in:
   Die erste Showcase-Section "Quick Actions".
 - `shift-overview.png`
   Die zweite grosse Showcase-Section fuer Schichtplanung.
+- `templates.png`
+  Die Operations-Karte fuer Schichtvorlagen.
+- `premiums.png`
+  Die Operations-Karte fuer Zuschlaege und Premium-Details.
+- `cash-expenses.png`
+  Die Operations-Karte fuer Bargeld-Ausgaben und Entries.
+- `daily-forecast.png`
+  Die Forecast-Karte fuer die naechste Schicht.
+- `monthly-tip-forecast.png`
+  Die grosse Forecast-Karte fuer die Monatsprognose.
+- `salary-forecast.png`
+  Die Forecast-Karte fuer Gehalts- und Netto-Prognose.
 - `insights.png`
   Der linke Device-Shot im unteren CTA-Bereich.
 - `live-activity.png`
