@@ -6,7 +6,7 @@ Die Homepage nutzt jetzt echte iPhone-Mockups als Bilddateien und ist strukturel
 
 Lege deine fertigen Render in:
 
-- `/Users/enrique/Dev/Projekte/ShiftTap/website/images/mockups/`
+- `/Users/enrique/Dev/Projekte/ShiftTap/website/public/images/mockups/`
 
 ## Erwartete Dateinamen
 
@@ -60,7 +60,7 @@ Du wolltest fertige iPhone-Mockups als Bild statt nachgebauter CSS-Geraete. Desh
 
 ## Schnelltest
 
-1. Dateien in `images/mockups/` ablegen
+1. Dateien in `public/images/mockups/` ablegen
 2. Startseite neu laden
 3. Die Platzhalter verschwinden automatisch, sobald die Bilddateien existieren
 
@@ -68,7 +68,7 @@ Du wolltest fertige iPhone-Mockups als Bild statt nachgebauter CSS-Geraete. Desh
 
 ```bash
 cd /Users/enrique/Dev/Projekte/ShiftTap/website
-git add index.html styles.css SCREENSHOTS.md images/mockups
+git add app public/images/mockups SCREENSHOTS.md
 git commit -m "Restructure homepage around image-based iPhone mockups"
 git push origin main
 ```
