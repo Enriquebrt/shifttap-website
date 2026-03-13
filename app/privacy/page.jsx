@@ -6,6 +6,10 @@ export const metadata = {
     "Datenschutzerklärung von ShiftTap. Privacy-First, lokale Speicherung und Informationen zu In-App-Käufen.",
   alternates: {
     canonical: "/privacy",
+    languages: {
+      de: "/privacy",
+      en: "/en/privacy",
+    },
   },
 };
 

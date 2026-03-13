@@ -6,6 +6,10 @@ export const metadata = {
     "ShiftTap Support, Kontakt und FAQ für die App rund um Trinkgeld, Schichten und Premium-Funktionen.",
   alternates: {
     canonical: "/support",
+    languages: {
+      de: "/support",
+      en: "/en/support",
+    },
   },
 };
 
