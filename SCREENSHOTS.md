@@ -1,246 +1,57 @@
-# ShiftTap - Screenshot-Anleitung
+# ShiftTap Screenshot Setup
 
-## Screenshots später hinzufügen
+Die neue Website ist so gebaut, dass du echte App-Screenshots einfach in den Ordner `images/` legst. Wenn eine Datei fehlt, zeigt die Seite automatisch einen stilvollen Platzhalter statt eines kaputten Bildes.
 
-Die Website ist mit Platzhaltern vorbereitet. So fügst du später echte Screenshots hinzu:
+## Screenshot-Dateien
 
----
+Lege diese Dateien in `/Users/enrique/Dev/Projekte/ShiftTap/website/images/` ab:
 
-## Option 1: Bilder hochladen (Empfohlen)
+- `hero-overview.png`
+- `hero-quick-actions.png`
+- `dashboard.png`
+- `insights.png`
+- `schedule.png`
+- `live-activity.png`
 
-### Schritt 1: Screenshots erstellen
+## Wo welche Datei verwendet wird
 
-Erstelle Screenshots in der App:
-1. iPhone Simulator oder echtes Gerät
-2. Verschiedene Screens: Dashboard, Insights, Schedule, Live Activity
-3. Format: PNG, mindestens 1170x2532px (iPhone 14 Pro)
+- `hero-overview.png`
+  Die grosse iPhone-Darstellung im Hero und die erste breite Galerie-Karte.
+- `hero-quick-actions.png`
+  Das zweite kleinere iPhone im Hero.
+- `dashboard.png`
+  Der erste grosse Story-Block fuer deine Home- oder Dashboard-Ansicht.
+- `insights.png`
+  Der Analytics-Story-Block und die Analytics-Galerie.
+- `schedule.png`
+  Der Planungs-Story-Block und die Schedule-Galerie.
+- `live-activity.png`
+  Die letzte Galerie-Karte fuer Live Activity oder Lock Screen.
 
-### Schritt 2: Screenshots optimieren
+## Empfohlene Formate
 
-```bash
-# Erstelle images Ordner
-mkdir /Users/enrique/Dev/Projekte/ShiftTap/website/images
+- iPhone Screens: PNG
+- Aufloesung: mindestens 1290 x 2796 px, wenn du bereits App-Store-Screens nutzt
+- Hintergrund: am besten direkt aus der App, ohne zusaetzliche Geraeterahmen
 
-# Screenshots dort speichern als:
-- dashboard.png
-- insights.png
-- schedule.png
-- live-activity.png
-- hero-phone.png
-```
+Die Website setzt ihre eigenen Device-Frames und Karten bereits um.
 
-### Schritt 3: HTML anpassen
+## Schnelltest lokal
 
-Ersetze im `index.html`:
+1. Screenshots in `images/` ablegen
+2. Seite lokal oeffnen
+3. Pruefen, ob die Platzhalter automatisch verschwinden
 
-```html
-<!-- Hero Screenshot -->
-<div class="screenshot-placeholder">
-    📱<br>App Icon &<br>Hauptansicht
-</div>
-```
+## Optional zusaetzlich sinnvoll
 
-**Mit:**
+- `app-icon.png` fuer Favicons und Apple Touch Icon
+- `og-image.png` fuer Social Sharing Preview
 
-```html
-<img src="images/hero-phone.png" alt="ShiftTap Dashboard">
-```
-
-**Und Screenshot-Cards:**
-
-```html
-<!-- Vorher -->
-<div class="screen">📊</div>
-
-<!-- Nachher -->
-<div class="screen">
-    <img src="images/dashboard.png" alt="Dashboard" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
-</div>
-```
-
----
-
-## Option 2: Externe Hosting (Schneller)
-
-Lade Screenshots zu einem Image Host hoch:
-
-1. **Imgur**: imgur.com/upload
-2. **Cloudinary**: cloudinary.com (kostenlos)
-3. **GitHub**: Direkt im Repo speichern
-
-Dann verwende die URLs:
-
-```html
-<img src="https://i.imgur.com/XXXXX.png" alt="Dashboard">
-```
-
----
-
-## Screenshot-Empfehlungen für App Store
-
-### Benötigte Screenshots:
-
-#### 1. 6.7" Display (iPhone 14 Pro Max) - 1290 x 2796px
-- Dashboard / Home
-- Smart Insights
-- Schichtplanung
-- Live Activity (Lock Screen)
-- Widgets Übersicht
-- Premium Features
-
-#### 2. 6.5" Display (iPhone 11 Pro Max) - 1242 x 2688px
-(Falls du auch ältere Geräte unterstützen möchtest)
-
-### Screenshot-Reihenfolge:
-
-1. **Hero Shot** - Dashboard mit Daten
-2. **Killer Feature** - Live Activity / Smart Insights
-3. **Hauptfunktion** - Schichtplanung
-4. **Zusatzfeature** - Widgets
-5. **Premium** - Premium Features Übersicht
-
----
-
-## App Icon für Website
-
-Exportiere das App Icon aus Xcode:
-
-```bash
-# App Icon ist in:
-ShiftTap/Resources/Assets.xcassets/AppIcon.appiconset/
-
-# Kopiere die 1024x1024 Version als:
-/Users/enrique/Dev/Projekte/ShiftTap/website/images/app-icon.png
-```
-
-Dann im HTML `<head>` hinzufügen:
-
-```html
-<link rel="icon" type="image/png" href="images/app-icon.png">
-<link rel="apple-touch-icon" href="images/app-icon.png">
-```
-
----
-
-## Screenshot-Tools (Optional)
-
-### 1. Simulator Screenshots
-
-```bash
-# Im Simulator:
-# CMD + S = Screenshot
-# Gespeichert in: ~/Desktop/
-```
-
-### 2. Framer für Marketing Screenshots
-
-- **Rotato**: rotato.app (3D Mockups)
-- **Screely**: screely.com (Browser Mockups)
-- **Mockuuups**: mockuuups.studio (Device Frames)
-
-### 3. Screenshot-Bearbeitung
-
-```bash
-# ImageMagick (Terminal)
-brew install imagemagick
-
-# Resize
-convert input.png -resize 1290x2796 output.png
-
-# Optimize
-convert input.png -quality 85 output.png
-```
-
----
-
-## Farben aus der Website extrahieren
-
-Die Website verwendet diese Farben (für Screenshot-Matching):
-
-```css
-Primary: #667eea (Lila-Blau)
-Secondary: #764ba2 (Dunkellila)
-Dark: #2d3748 (Fast-Schwarz)
-Light: #f7fafc (Hellgrau)
-```
-
----
-
-## Open Graph Image (Social Media)
-
-Für Social Media Previews:
-
-```bash
-# Erstelle ein 1200x630px Bild
-# Mit: App Icon + Tagline + Gradient
-# Speichere als: og-image.png
-```
-
-Im HTML `<head>` ist bereits vorbereitet:
-
-```html
-<meta property="og:image" content="https://shifttap.app/og-image.png">
-```
-
----
-
-## Deployment nach Screenshot-Update
+## Deployment
 
 ```bash
 cd /Users/enrique/Dev/Projekte/ShiftTap/website
-
-# Füge neue Bilder hinzu
-git add images/
-git add index.html
-
-# Commit
-git commit -m "Add app screenshots"
-
-# Push (Vercel deployed automatisch)
+git add index.html support.html privacy.html styles.css script.js images SCREENSHOTS.md
+git commit -m "Modernize marketing site and add screenshot slots"
 git push origin main
 ```
-
----
-
-## Platzhalter vs. Echte Bilder
-
-**Aktuell (Platzhalter):**
-- ✅ Website funktioniert
-- ✅ Layout ist fertig
-- ✅ Kann für App Store eingereicht werden
-- ⏳ Screenshots können später hinzugefügt werden
-
-**Mit echten Screenshots:**
-- ✅ Professioneller
-- ✅ Bessere Conversion
-- ✅ Nutzer sehen tatsächliche App
-- ✅ Höhere Download-Rate
-
----
-
-## Schnell-Anleitung (5 Minuten)
-
-```bash
-# 1. Screenshots im Simulator machen (CMD + S)
-# 2. Bilder optimieren und umbenennen
-# 3. In images/ Ordner kopieren
-
-mkdir website/images
-cp ~/Desktop/Simulator*.png website/images/
-
-# 4. HTML anpassen (siehe oben)
-# 5. Testen
-open website/index.html
-
-# 6. Deployen
-cd website
-git add .
-git commit -m "Add screenshots"
-git push origin main
-```
-
----
-
-**Für jetzt:** Die Platzhalter sind vollkommen ausreichend für den App Store Submission! Du kannst echte Screenshots später hinzufügen, wenn die App live ist.
-
-🎉 **Die Website ist ready für App Store Connect!**
