@@ -8,6 +8,9 @@
     <meta property="og:description" content="Die ultimative App für Servicekräfte. Tracke Trinkgelder, plane Schichten und maximiere dein Einkommen.">
     <meta property="og:image" content="https://shifttap.app/og-image.png">
     <title>ShiftTap - Trinkgeld & Schichtplanung für Profis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,18 +19,24 @@
         }
 
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --dark: #2d3748;
-            --light: #f7fafc;
-            --accent: #f56565;
+            --accent: #667eea;
+            --accent-2: #764ba2;
+            --accent-glow: rgba(102, 126, 234, 0.5);
+            --bg-dark: #000000;
+            --bg-card: #0a0a0a;
+            --bg-elevated: #121212;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
             line-height: 1.6;
-            color: #333;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Navigation */
@@ -35,344 +44,366 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 20px 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid var(--border);
         }
 
-        nav .container {
+        .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        nav .logo {
-            font-size: 1.5em;
-            font-weight: bold;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        nav .nav-links a {
-            margin-left: 30px;
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
             text-decoration: none;
-            color: var(--dark);
             font-weight: 500;
+            font-size: 14px;
             transition: color 0.3s;
         }
 
-        nav .nav-links a:hover {
-            color: var(--primary);
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-cta {
+            padding: 10px 24px;
+            background: var(--accent);
+            border-radius: 100px;
+            color: white !important;
+            font-weight: 600;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 180px 20px 120px;
-            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             overflow: hidden;
+            padding: 120px 24px 80px;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-            background-size: cover;
-            background-position: bottom;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            filter: blur(100px);
             opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .floating-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            filter: drop-shadow(0 0 20px currentColor);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .dot-1 { top: 15%; left: 10%; color: #667eea; animation-delay: 0s; }
+        .dot-2 { top: 25%; right: 15%; color: #764ba2; animation-delay: 1s; }
+        .dot-3 { bottom: 20%; left: 20%; color: #f093fb; animation-delay: 2s; }
+        .dot-4 { bottom: 30%; right: 10%; color: #4facfe; animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
         }
 
         .hero-content {
             position: relative;
+            text-align: center;
+            max-width: 900px;
             z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 4em;
-            margin-bottom: 20px;
-            animation: fadeInUp 1s ease-out;
+            font-size: clamp(48px, 10vw, 132px);
+            font-weight: 800;
+            letter-spacing: -0.06em;
+            line-height: 1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero .tagline {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            opacity: 0.95;
-            animation: fadeInUp 1s ease-out 0.2s backwards;
-        }
-
-        .hero .subtitle {
-            font-size: 1.2em;
-            margin-bottom: 40px;
-            opacity: 0.85;
-            animation: fadeInUp 1s ease-out 0.3s backwards;
+            font-size: clamp(20px, 3vw, 28px);
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            font-weight: 500;
+            letter-spacing: -0.02em;
         }
 
         .cta-buttons {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
-            animation: fadeInUp 1s ease-out 0.4s backwards;
         }
 
-        .cta-button {
+        .btn {
+            padding: 16px 32px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: white;
-            color: var(--primary);
-            padding: 18px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2em;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            gap: 8px;
         }
 
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-
-        .cta-button.secondary {
-            background: rgba(255,255,255,0.2);
+        .btn-primary {
+            background: var(--accent);
             color: white;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 24px rgba(102, 126, 234, 0.4);
         }
 
-        /* Screenshot Preview */
-        .hero-preview {
-            margin-top: 80px;
-            animation: fadeInUp 1s ease-out 0.6s backwards;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.6);
         }
 
-        .phone-mockup {
-            position: relative;
-            max-width: 300px;
+        .btn-secondary {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Stats Strip */
+        .stats {
+            padding: 64px 24px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            max-width: 1200px;
             margin: 0 auto;
-            perspective: 1000px;
-        }
-
-        .phone-mockup img {
-            width: 100%;
-            border-radius: 40px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .screenshot-placeholder {
-            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 40px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2em;
-            text-align: center;
-        }
-
-        /* Screenshots Section */
-        .screenshots {
-            padding: 100px 20px;
-            background: var(--light);
-        }
-
-        .screenshots h2 {
-            text-align: center;
-            font-size: 2.8em;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-
-        .screenshots .subtitle {
-            text-align: center;
-            font-size: 1.3em;
-            color: #666;
-            margin-bottom: 60px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .screenshot-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 48px;
+            text-align: center;
+        }
+
+        .stat-item .number {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-item .label {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        /* Section */
+        .section {
+            padding: 120px 24px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Screenshot Grid */
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
         .screenshot-card {
-            background: white;
-            border-radius: 30px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg-card) 100%);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 24px;
+            transition: all 0.3s;
         }
 
         .screenshot-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 48px rgba(102, 126, 234, 0.2);
         }
 
         .screenshot-card .screen {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 20px;
-            height: 500px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            border-radius: 16px;
+            height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 3em;
             margin-bottom: 20px;
             position: relative;
             overflow: hidden;
         }
 
-        .screenshot-card .screen::after {
-            content: 'Screenshot';
+        .screenshot-card .screen::before {
+            content: '';
             position: absolute;
-            bottom: 20px;
-            font-size: 0.3em;
-            opacity: 0.5;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 60%);
+        }
+
+        .screenshot-card .screen-icon {
+            font-size: 64px;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
         }
 
         .screenshot-card h3 {
-            color: var(--dark);
-            font-size: 1.4em;
-            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
         }
 
         .screenshot-card p {
-            color: #666;
-            font-size: 1em;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
         }
 
-        /* Features Section */
-        .features {
-            padding: 100px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .features h2 {
-            text-align: center;
-            font-size: 2.8em;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-
-        .features .subtitle {
-            text-align: center;
-            font-size: 1.3em;
-            color: #666;
-            margin-bottom: 60px;
-        }
-
+        /* Feature Grid */
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
         }
 
         .feature-card {
-            padding: 40px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg-card) 100%);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
             transition: all 0.3s;
-            border: 2px solid transparent;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+            border-color: var(--accent);
+            transform: translateY(-4px);
         }
 
-        .feature-card .icon {
-            font-size: 3.5em;
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
             margin-bottom: 20px;
-            display: block;
         }
 
         .feature-card h3 {
-            color: var(--dark);
-            margin-bottom: 15px;
-            font-size: 1.5em;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
         }
 
         .feature-card p {
-            color: #666;
-            line-height: 1.8;
-        }
-
-        /* Stats Section */
-        .stats {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .stat-item {
-            padding: 20px;
-        }
-
-        .stat-item .number {
-            font-size: 3em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .stat-item .label {
-            font-size: 1.2em;
-            opacity: 0.9;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
         }
 
         /* CTA Section */
         .cta-section {
-            padding: 100px 20px;
+            padding: 120px 24px;
             text-align: center;
-            background: var(--light);
+            position: relative;
+            overflow: hidden;
         }
 
-        .cta-section h2 {
-            font-size: 2.8em;
-            margin-bottom: 20px;
-            color: var(--dark);
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            filter: blur(80px);
+            opacity: 0.2;
         }
 
-        .cta-section p {
-            font-size: 1.3em;
-            color: #666;
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+        }
+
+        .cta-content p {
+            font-size: 20px;
+            color: var(--text-secondary);
             margin-bottom: 40px;
             max-width: 600px;
             margin-left: auto;
@@ -381,23 +412,25 @@
 
         /* Footer */
         footer {
-            background: var(--dark);
-            color: white;
-            padding: 60px 20px 30px;
+            border-top: 1px solid var(--border);
+            padding: 80px 24px 40px;
         }
 
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 48px;
+            margin-bottom: 48px;
         }
 
-        .footer-section h3 {
-            margin-bottom: 20px;
-            color: var(--primary);
+        .footer-section h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
         }
 
         .footer-section ul {
@@ -405,82 +438,52 @@
         }
 
         .footer-section ul li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .footer-section a {
-            color: rgba(255,255,255,0.8);
+            color: var(--text-secondary);
             text-decoration: none;
+            font-size: 14px;
             transition: color 0.3s;
         }
 
         .footer-section a:hover {
-            color: var(--primary);
+            color: var(--text-primary);
         }
 
         .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.6);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+            color: var(--text-secondary);
+            font-size: 14px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            nav .nav-links {
+            .nav-links {
                 display: none;
             }
 
-            .hero h1 {
-                font-size: 2.5em;
+            .hero {
+                padding-top: 100px;
             }
 
-            .hero .tagline {
-                font-size: 1.3em;
+            .section {
+                padding: 80px 24px;
             }
 
-            .hero .subtitle {
-                font-size: 1em;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .cta-button {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .feature-grid,
-            .screenshot-grid {
+            .screenshot-grid,
+            .feature-grid {
                 grid-template-columns: 1fr;
             }
 
             .stats-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
             }
         }
     </style>
@@ -488,44 +491,40 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <div class="container">
-            <div class="logo">📱 ShiftTap</div>
+        <div class="nav-container">
+            <div class="logo">ShiftTap</div>
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#screenshots">Screenshots</a>
                 <a href="/support">Support</a>
                 <a href="/privacy">Datenschutz</a>
+                <a href="https://apps.apple.com/app/shifttap/idXXXXXXXXXX" class="nav-cta">Download</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="floating-dot dot-1"></div>
+        <div class="floating-dot dot-2"></div>
+        <div class="floating-dot dot-3"></div>
+        <div class="floating-dot dot-4"></div>
+
         <div class="hero-content">
-            <h1>📱 ShiftTap</h1>
-            <p class="tagline">Deine Einnahmen im Griff</p>
-            <p class="subtitle">Die ultimative App für Servicekräfte. Tracke Trinkgelder, plane Schichten und maximiere dein Einkommen – einfach, schön und privat.</p>
-
+            <h1>ShiftTap</h1>
+            <p class="tagline">Deine Einnahmen im Griff. Privat. Einfach. Professionell.</p>
             <div class="cta-buttons">
-                <a href="https://apps.apple.com/app/shifttap/idXXXXXXXXXX" class="cta-button">
-                    📲 Jetzt im App Store
+                <a href="https://apps.apple.com/app/shifttap/idXXXXXXXXXX" class="btn btn-primary">
+                    📲 Jetzt laden
                 </a>
-                <a href="#screenshots" class="cta-button secondary">
-                    📸 Screenshots ansehen
+                <a href="#screenshots" class="btn btn-secondary">
+                    Mehr erfahren
                 </a>
-            </div>
-        </div>
-
-        <div class="hero-preview">
-            <div class="phone-mockup">
-                <div class="screenshot-placeholder">
-                    📱<br>App Icon &<br>Hauptansicht
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
+    <!-- Stats Strip -->
     <section class="stats">
         <div class="stats-grid">
             <div class="stat-item">
@@ -548,118 +547,132 @@
     </section>
 
     <!-- Screenshots Section -->
-    <section class="screenshots" id="screenshots">
-        <h2>Die App im Detail</h2>
-        <p class="subtitle">Entdecke alle Features von ShiftTap in Aktion</p>
+    <section class="section" id="screenshots">
+        <div class="section-header">
+            <h2>Die App im Detail</h2>
+            <p>Entdecke alle Features von ShiftTap</p>
+        </div>
 
         <div class="screenshot-grid">
             <div class="screenshot-card">
-                <div class="screen">📊</div>
+                <div class="screen">
+                    <div class="screen-icon">📊</div>
+                </div>
                 <h3>Dashboard</h3>
                 <p>Übersichtliches Dashboard mit allen wichtigen Infos auf einen Blick</p>
             </div>
 
             <div class="screenshot-card">
-                <div class="screen">📈</div>
+                <div class="screen">
+                    <div class="screen-icon">📈</div>
+                </div>
                 <h3>Smart Insights</h3>
-                <p>Intelligente Analysen und personalisierte Empfehlungen für mehr Einkommen</p>
+                <p>Intelligente Analysen und personalisierte Empfehlungen</p>
             </div>
 
             <div class="screenshot-card">
-                <div class="screen">📅</div>
+                <div class="screen">
+                    <div class="screen-icon">📅</div>
+                </div>
                 <h3>Schichtplanung</h3>
-                <p>Professionelle Schichtplanung mit Zuschlägen und Kalender-Integration</p>
+                <p>Professionelle Schichtplanung mit Live Activities</p>
             </div>
 
             <div class="screenshot-card">
-                <div class="screen">🔔</div>
+                <div class="screen">
+                    <div class="screen-icon">🔔</div>
+                </div>
                 <h3>Live Activity</h3>
-                <p>Verfolge deine aktive Schicht direkt im Sperrbildschirm</p>
+                <p>Verfolge aktive Schichten im Sperrbildschirm</p>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features" id="features">
-        <h2>Alle Features</h2>
-        <p class="subtitle">Alles was du brauchst, um dein Einkommen zu optimieren</p>
+    <section class="section" id="features">
+        <div class="section-header">
+            <h2>Alles für dein Einkommen</h2>
+            <p>Professionelle Tools für Servicekräfte</p>
+        </div>
 
         <div class="feature-grid">
             <div class="feature-card">
-                <span class="icon">📊</span>
+                <div class="feature-icon">📊</div>
                 <h3>Smart Analytics</h3>
-                <p>Detaillierte Statistiken zu Einnahmen, Schichten und Trends. Verstehe deine Performance und optimiere dein Einkommen mit datengetriebenen Insights.</p>
+                <p>Detaillierte Statistiken zu Einnahmen, Schichten und Trends. Optimiere dein Einkommen mit datengetriebenen Insights.</p>
             </div>
 
             <div class="feature-card">
-                <span class="icon">📅</span>
+                <div class="feature-icon">📅</div>
                 <h3>Schichtplanung</h3>
-                <p>Erstelle und verwalte Schichten mit Nacht- und Feiertagszuschlägen. Kalender-Integration und Live Activities zeigen dir alles in Echtzeit.</p>
+                <p>Erstelle und verwalte Schichten mit Nacht- und Feiertagszuschlägen. Kalender-Integration inklusive.</p>
             </div>
 
             <div class="feature-card">
-                <span class="icon">💰</span>
+                <div class="feature-icon">💰</div>
                 <h3>Trinkgeld Tracking</h3>
-                <p>Schnelles Erfassen von Trinkgeldern mit Brutto/Netto-Berechnungen. Steuerrechner speziell für Deutschland inklusive.</p>
+                <p>Schnelles Erfassen von Trinkgeldern mit Brutto/Netto-Berechnungen und Steuerrechner.</p>
             </div>
 
             <div class="feature-card">
-                <span class="icon">📈</span>
+                <div class="feature-icon">📈</div>
                 <h3>Prognosen & Ziele</h3>
-                <p>KI-gestützte Tagesprognosen und erreichbare Einkommensziele. Verfolge deinen Fortschritt und bleibe motiviert.</p>
+                <p>KI-gestützte Tagesprognosen und erreichbare Einkommensziele. Bleib motiviert.</p>
             </div>
 
             <div class="feature-card">
-                <span class="icon">💳</span>
+                <div class="feature-icon">💳</div>
                 <h3>Ausgaben Management</h3>
-                <p>Erfasse berufliche Ausgaben, kategorisiere sie und erstelle steuerrelevante Exporte für deine Steuererklärung.</p>
+                <p>Erfasse berufliche Ausgaben und erstelle steuerrelevante Exporte.</p>
             </div>
 
             <div class="feature-card">
-                <span class="icon">🔔</span>
+                <div class="feature-icon">🔔</div>
                 <h3>Live Activities</h3>
-                <p>Verfolge deine aktive Schicht direkt im Sperrbildschirm mit Dynamic Island Support. Nie war Zeiterfassung einfacher.</p>
+                <p>Verfolge deine aktive Schicht direkt im Sperrbildschirm mit Dynamic Island.</p>
             </div>
 
             <div class="feature-card">
-                <span class="icon">📱</span>
+                <div class="feature-icon">📱</div>
                 <h3>Widgets</h3>
-                <p>4 verschiedene Widget-Typen für deinen Homescreen: Tagesübersicht, Wochenstatistik, aktive Schicht und nächste Schicht.</p>
+                <p>4 verschiedene Widget-Typen für deinen Homescreen mit Echtzeit-Daten.</p>
             </div>
 
             <div class="feature-card">
-                <span class="icon">🔒</span>
+                <div class="feature-icon">🔒</div>
                 <h3>Datenschutz First</h3>
-                <p>Alle Daten bleiben lokal auf deinem Gerät. Keine Cloud-Pflicht, keine Werbung, kein Tracking. Deine Privatsphäre ist garantiert.</p>
+                <p>Alle Daten bleiben lokal auf deinem Gerät. Keine Cloud-Pflicht, kein Tracking.</p>
             </div>
 
             <div class="feature-card">
-                <span class="icon">🎨</span>
+                <div class="feature-icon">🎨</div>
                 <h3>Modernes Design</h3>
-                <p>Glassmorphismus-Design mit anpassbaren Themes und Hintergründen. Vollständig optimiert für iOS 18 und das neueste Design-System.</p>
+                <p>Glassmorphismus-Design mit anpassbaren Themes. Optimiert für iOS 18.</p>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <h2>Bereit loszulegen?</h2>
-        <p>Starte noch heute und nimm die Kontrolle über deine Einnahmen. Kostenlos testen, dann upgraden wenn du bereit bist.</p>
-        <a href="https://apps.apple.com/app/shifttap/idXXXXXXXXXX" class="cta-button">
-            📲 Jetzt kostenlos laden
-        </a>
+        <div class="cta-content">
+            <h2>Bereit loszulegen?</h2>
+            <p>Starte noch heute und nimm die Kontrolle über deine Einnahmen. Kostenlos testen, dann upgraden wenn du bereit bist.</p>
+            <a href="https://apps.apple.com/app/shifttap/idXXXXXXXXXX" class="btn btn-primary">
+                📲 Jetzt kostenlos laden
+            </a>
+        </div>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>ShiftTap</h3>
-                <p>Die ultimative App für Servicekräfte, Barkeeper und alle, die Trinkgeld verdienen.</p>
+                <h4>ShiftTap</h4>
+                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">Die ultimative App für Servicekräfte, Barkeeper und alle, die Trinkgeld verdienen.</p>
             </div>
 
             <div class="footer-section">
-                <h3>Links</h3>
+                <h4>Links</h4>
                 <ul>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#screenshots">Screenshots</a></li>
@@ -669,7 +682,7 @@
             </div>
 
             <div class="footer-section">
-                <h3>Kontakt</h3>
+                <h4>Kontakt</h4>
                 <ul>
                     <li><a href="mailto:support@shifttap.app">support@shifttap.app</a></li>
                     <li><a href="https://apps.apple.com/app/shifttap/idXXXXXXXXXX">App Store</a></li>
@@ -677,12 +690,12 @@
             </div>
 
             <div class="footer-section">
-                <h3>Für wen?</h3>
+                <h4>Für wen?</h4>
                 <ul>
-                    <li>Kellner & Servicekräfte</li>
-                    <li>Barkeeper & Bartender</li>
-                    <li>Hotel-Personal</li>
-                    <li>Lieferdienst-Fahrer</li>
+                    <li><a href="#">Kellner & Service</a></li>
+                    <li><a href="#">Barkeeper</a></li>
+                    <li><a href="#">Hotel-Personal</a></li>
+                    <li><a href="#">Lieferdienste</a></li>
                 </ul>
             </div>
         </div>
