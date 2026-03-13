@@ -2006,8 +2006,8 @@ a {
 
 .reveal {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 700ms ease, transform 700ms ease;
+    transform: translateY(16px);
+    transition: opacity 420ms ease, transform 420ms ease;
     transition-delay: var(--reveal-delay, 0ms);
 }
 
