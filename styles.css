@@ -1417,6 +1417,22 @@ a {
     min-height: min(880px, 70vw);
 }
 
+.hero-device {
+    --scroll-tilt-x: 74deg;
+    --scroll-tilt-yaw-current: -8deg;
+    --scroll-tilt-translate-current: 170px;
+    --scroll-tilt-scale-current: 1.08;
+    transform:
+        perspective(1800px)
+        translate3d(0, var(--scroll-tilt-translate-current, 0px), 0)
+        scale(var(--scroll-tilt-scale-current, 1))
+        rotateX(var(--scroll-tilt-x, 0deg))
+        rotateY(var(--scroll-tilt-yaw-current, 0deg));
+    transform-origin: center bottom;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
 .product-shot-wide .mockup-slot {
     min-height: min(760px, 58vw);
 }
@@ -2048,7 +2064,8 @@ a {
 
     .reveal,
     .reveal.is-visible,
-    [data-parallax] {
+    [data-parallax],
+    [data-scroll-tilt] {
         transition: none !important;
         transform: none !important;
         opacity: 1 !important;
@@ -2087,6 +2104,10 @@ a {
 
     .hero-visual {
         min-height: 660px;
+    }
+
+    .hero-device {
+        transform: none;
     }
 
     .story-panel:nth-child(even) .story-copy,

@@ -112,6 +112,7 @@ export function SiteEffects() {
 
     const updateParallax = () => {
       const viewportHeight = window.innerHeight || 1;
+      const viewportWidth = window.innerWidth || 0;
       const documentHeight = document.documentElement.scrollHeight - viewportHeight;
 
       if (documentHeight > 0) {
@@ -129,6 +130,30 @@ export function SiteEffects() {
         element.style.setProperty("--parallax-offset", `${clampedOffset}px`);
         element.style.setProperty("--parallax-speed", "1");
         element.style.setProperty("--parallax-progress", normalizedProgress.toFixed(3));
+      });
+
+      document.querySelectorAll("[data-scroll-tilt]").forEach((element) => {
+        if (prefersReducedMotion || viewportWidth < 900) {
+          element.style.setProperty("--scroll-tilt-x", "0deg");
+          element.style.setProperty("--scroll-tilt-yaw-current", "0deg");
+          element.style.setProperty("--scroll-tilt-translate-current", "0px");
+          element.style.setProperty("--scroll-tilt-scale-current", "1");
+          return;
+        }
+
+        const range = Number(element.dataset.scrollTiltRange || "360");
+        const startRotate = Number(element.dataset.scrollTiltStart || "72");
+        const startTranslate = Number(element.dataset.scrollTiltTranslate || "160");
+        const startScale = Number(element.dataset.scrollTiltScale || "1.06");
+        const startYaw = Number(element.dataset.scrollTiltYaw || "-6");
+        const rawProgress = Math.max(Math.min(window.scrollY / range, 1), 0);
+        const easedProgress = 1 - Math.pow(1 - rawProgress, 3);
+        const remaining = 1 - easedProgress;
+
+        element.style.setProperty("--scroll-tilt-x", `${(startRotate * remaining).toFixed(2)}deg`);
+        element.style.setProperty("--scroll-tilt-yaw-current", `${(startYaw * remaining).toFixed(2)}deg`);
+        element.style.setProperty("--scroll-tilt-translate-current", `${(startTranslate * remaining).toFixed(2)}px`);
+        element.style.setProperty("--scroll-tilt-scale-current", `${(1 + (startScale - 1) * remaining).toFixed(3)}`);
       });
 
       ticking = false;
